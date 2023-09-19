@@ -26,7 +26,7 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenu m3 = new JMenu("GPX");
 	private JMenu m4 = new JMenu("Cache");
 	private JMenu m5 = new JMenu("Position");
-	//private JMenuItem m11 = new JMenuItem("About...");
+	private JMenuItem m11 = new JMenuItem("Postleitzahlen...");
 	private JMenuItem m12 = new JMenuItem("Version...");
 	private JMenuItem m21 = new JMenuItem("SavePosition");
 	private JMenuItem m22 = new JMenuItem("RestorePosition");
@@ -63,7 +63,7 @@ public class MainFrame extends Menu implements PixelListener
 		butt2.setToolTipText("Decrease Zoom");
 		butt3.setToolTipText("Show local Websites");
 		//butt4.setToolTipText("Add Point to GPX Track");
-		//m11.addActionListener(this);
+		m11.addActionListener(this);
 		m12.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
@@ -80,7 +80,7 @@ public class MainFrame extends Menu implements PixelListener
 		m54.addActionListener(this);
 		m55.addActionListener(this);
 		m1.add(m12);
-		//m1.add(m11);
+		m1.add(m11);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -269,6 +269,46 @@ public class MainFrame extends Menu implements PixelListener
 			}
 		}
 		*/
+		if (quelle == m11)
+		{
+			Postgres postgres = new Postgres();
+			ArrayList<SatzPlz> saetze = postgres.selectAllePlz();
+			postgres.close();
+			double lat = koordinate.getLat();
+			double lon = koordinate.getLon();
+			for (int i=0;i<saetze.size();i++)
+			{
+				SatzPlz satz = saetze.get(i);
+				double plat = satz.getLat();
+				double plon = satz.getLon();
+				double dlat = lat - plat;
+				double dlon = lon - plon;
+				Double delta = Math.sqrt(dlat * dlat + dlon * dlon);
+				satz.setLat(delta);
+			}
+			Collections.sort(saetze);
+			SatzPlz min0satz = saetze.get(0);
+			String min0plz = min0satz.getPlz();
+			String min0ort = min0satz.getOrt();
+			SatzPlz min1satz = saetze.get(1);
+			String min1plz = min1satz.getPlz();
+			String min1ort = min1satz.getOrt();
+			SatzPlz min2satz = saetze.get(2);
+			String min2plz = min2satz.getPlz();
+			String min2ort = min2satz.getOrt();
+			SatzPlz min3satz = saetze.get(3);
+			String min3plz = min3satz.getPlz();
+			String min3ort = min3satz.getOrt();
+			SatzPlz min4satz = saetze.get(4);
+			String min4plz = min4satz.getPlz();
+			String min4ort = min4satz.getOrt();
+			String min = min0plz + " " + min0ort;
+			min += "\n" + min1plz + " " + min1ort;
+			min += "\n" + min2plz + " " + min2ort;
+			min += "\n" + min3plz + " " + min3ort;
+			min += "\n" + min4plz + " " + min4ort;
+			JOptionPane.showMessageDialog(null,min,"Fünf nächstgelegene Postleitzahlen",JOptionPane.INFORMATION_MESSAGE);
+		}
 		if (quelle == m12)
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
