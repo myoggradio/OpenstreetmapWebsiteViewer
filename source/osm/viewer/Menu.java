@@ -1,5 +1,8 @@
 package osm.viewer;
 import javax.swing.*;
+
+import core.Protokol;
+
 import java.awt.event.*;
 public class Menu extends JFrame implements ActionListener
 {
@@ -12,9 +15,11 @@ public class Menu extends JFrame implements ActionListener
 	}
 	public void anzeigen()
 	{
+		Protokol.write("Menu::Beginn");
 		JFrame rahmen = this;
 		rahmen.pack();
 		rahmen.setVisible(true);
+		Protokol.write("Menu::End");
 	}
 	public void actionPerformed(ActionEvent ae)
 	{

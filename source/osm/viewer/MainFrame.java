@@ -50,6 +50,7 @@ public class MainFrame extends Menu implements PixelListener
 	public MainFrame() 
 	{
 		super("http://www.myoggradio.org");
+		Protokol.write("MainFrame::Beginn");
 		bpan.setLayout(new GridLayout(1,3));
 		bpan.add(butt1);
 		bpan.add(butt2);
@@ -108,6 +109,7 @@ public class MainFrame extends Menu implements PixelListener
 		cpan.add(ip,BorderLayout.CENTER);
 		cpan.add(info,BorderLayout.SOUTH);
 		setContentPane(cpan);
+		Protokol.write("MainFrame::End");
 	}
 	public void showIcon()
 	{
@@ -248,6 +250,7 @@ public class MainFrame extends Menu implements PixelListener
 		koordinate.calculateLatLon();
 		showIcon();
 	}
+	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object quelle = ae.getSource();
@@ -622,6 +625,14 @@ public class MainFrame extends Menu implements PixelListener
 			koordinate.setY(y);
 			showIcon();
 		}
+	}
+	@Override
+	public void anzeigen()
+	{
+		Protokol.write("MainFrame:anzeigen:Beginn");
+		this.pack();
+		this.setVisible(true);
+		Protokol.write("MainFrame:anzeigen:End");
 	}
 	public boolean istGerade(int i)
 	{
