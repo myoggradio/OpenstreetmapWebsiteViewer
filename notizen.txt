@@ -1,0 +1,1 @@
+Bei manchen Installationen muss das Paket libgnomecanvas2-0 installiert werden. Ansonsten funktioniert "desktop.browse(temp.toURI());" nicht.
