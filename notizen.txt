@@ -1,1 +1,3 @@
 Bei manchen Installationen muss das Paket libgnomecanvas2-0 installiert werden. Ansonsten funktioniert "desktop.browse(temp.toURI());" nicht.
+
+Das Repository mittels "git clone https://git.launchpad.net/osmwv" geclont werden.
