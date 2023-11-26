@@ -49,7 +49,7 @@ public class MainFrame extends Menu implements PixelListener
 	//private Util util = Factory.getUtil();
 	public MainFrame() 
 	{
-		super("http://www.myoggradio.org");
+		super("http://www.myoggradio.org/osmwv");
 		Protokol.write("MainFrame::Beginn");
 		bpan.setLayout(new GridLayout(1,3));
 		bpan.add(butt1);
