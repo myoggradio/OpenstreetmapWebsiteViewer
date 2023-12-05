@@ -74,10 +74,14 @@ public class FileKachelCache implements KachelCache
 	@Override
 	public String getStatistik() 
 	{
+		File file = new File(Parameter.cachedir);
+		File[] files = file.listFiles();
+		Parameter.getKachelInCache = files.length;
 		String erg = "Kachel read Total : " + Parameter.getKachel + "\n";
 		      erg += "Kachel from File  : " + Parameter.getKachelFromFile + "\n";
 		      erg += "Kachel from RAM   : " + Parameter.getKachelFromRam + "\n";
 		      erg += "Kachel from Server: " + Parameter.getKachelFromServer + "\n";
+		      erg += "Kachel in Cache   : " + Parameter.getKachelInCache + "\n";
 		return erg;
 	}
 	@Override
