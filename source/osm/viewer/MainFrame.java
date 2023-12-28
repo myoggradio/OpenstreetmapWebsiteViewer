@@ -38,7 +38,7 @@ public class MainFrame extends Menu implements PixelListener
 	//private JMenuItem m32 = new JMenuItem("Close GPX Track");
 	private JMenuItem m33 = new JMenuItem("Load GPX Track");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
-	//private JMenuItem m42 = new JMenuItem("Build Cache");
+	private JMenuItem m42 = new JMenuItem("Shrink Cache");
 	private JMenuItem m51 = new JMenuItem("Position to Border");
 	private JMenuItem m52 = new JMenuItem("Position plus one north");
 	private JMenuItem m53 = new JMenuItem("Position plus one east");
@@ -79,7 +79,7 @@ public class MainFrame extends Menu implements PixelListener
 		//m32.addActionListener(this);
 		m33.addActionListener(this);
 		m41.addActionListener(this);
-		//m42.addActionListener(this);
+		m42.addActionListener(this);
 		m51.addActionListener(this);
 		m52.addActionListener(this);
 		m53.addActionListener(this);
@@ -95,7 +95,7 @@ public class MainFrame extends Menu implements PixelListener
 		//m3.add(m32);
 		m3.add(m33);
 		m4.add(m41);
-		//m4.add(m42);
+		m4.add(m42);
 		m5.add(m51);
 		m5.add(m52);
 		m5.add(m53);
@@ -564,37 +564,11 @@ public class MainFrame extends Menu implements PixelListener
 			String statistik = kc.getStatistik();
 			JOptionPane.showMessageDialog(null,statistik,"Statistik",JOptionPane.INFORMATION_MESSAGE);
 		}
-		/*
 		if (quelle == m42)
 		{
-			int ok = JOptionPane.showConfirmDialog(null,"Build of Cache may take a long Time \n Do you want this?");
-			if (ok == JOptionPane.OK_OPTION)
-			{
-				int x = koordinate.getX();
-				int y = koordinate.getY();
-				int z = koordinate.getZ();
-				if (z < 7)
-				{
-					JOptionPane.showMessageDialog(null,"Sorry, Zoom Level mußt be greater 6","",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else
-				{
-					int gesamt = 0;
-					int temp = 1;
-					for (int iz=z;iz<18;iz++)
-					{
-						gesamt += temp;
-						temp = 4 * temp;
-					}
-					System.out.println("MainFrame::m42:Numberof tiles to read: " + gesamt);
-					ProgressPanel bar = Factory.getProgressPanel();
-					bar.setMaximum(gesamt);
-					CacheBuilder cacheBuilder = Factory.getCacheBuilder();
-					cacheBuilder.buildCache(x,y,z,bar);
-				}
-			}
+			KachelCache kc = Factory.getKachelCache();
+			kc.shrink();
 		}
-		*/
 		if (quelle == m51) // Position to Border
 		{
 			koordinate.setP(0);

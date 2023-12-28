@@ -5,4 +5,5 @@ public interface KachelCache
 	public Kachel get(int x,int y,int z);
 	public String getStatistik();
 	public void resetRAM();
+	public void shrink();
 }

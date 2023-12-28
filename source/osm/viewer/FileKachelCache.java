@@ -91,5 +91,31 @@ public class FileKachelCache implements KachelCache
 		{
 			cache[i] = Factory.getKachel();
 		}		
+	}
+	@Override
+	public void shrink() 
+	{
+		int anzahl = 0;
+		File dir = new File(cachedir);
+		File[] files = dir.listFiles();
+		for (int i=0;i<files.length;i++)
+		{
+			File file = files[i];
+			long laenge = file.length();
+			if (laenge < 1024)
+			{
+				boolean ok = file.delete();
+				if (!ok)
+				{
+					Protokol.write("FileKacheCache:shrink:Can not delete:" + file.getAbsolutePath());
+				}
+				else
+				{
+					anzahl++;
+				}
+			}
+		}
+		Protokol.write("FileKachelCache:shrink:Anzahl deleted Kacheln: " + anzahl);
+		resetRAM();
 	}	
 }
