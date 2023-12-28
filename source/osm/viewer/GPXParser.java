@@ -21,6 +21,8 @@ public class GPXParser
 	public void parse(File dir) throws Exception 
 	{
 		Protokol.write("GPXParser:parse:start:" + dir.getAbsolutePath());
+		Protokol.write("GPXParser:parse:unten links:" + Parameter.latul + ":" + Parameter.lonul);
+		Protokol.write("GPXParser:parse:oben rechts:" + Parameter.lator + ":" + Parameter.lonor);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		File[] fileList = dir.listFiles();
