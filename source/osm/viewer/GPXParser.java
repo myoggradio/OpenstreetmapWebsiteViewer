@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import core.Parameter;
+import core.Protokol;
 
 public class GPXParser 
 {
@@ -19,22 +20,34 @@ public class GPXParser
 	private String filename = null;
 	public void parse(File dir) throws Exception 
 	{
+		Protokol.write("GPXParser:parse:start:" + dir.getAbsolutePath());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		File[] fileList = dir.listFiles();
 		for (int i=0;i<fileList.length;i++)
 		{
 			File file = fileList[i];
-			if (file.isFile())
-			{
-				istok = false;
-				filename = file.getAbsolutePath();
-				doc = db.parse(filename);
-				NodeList nl = doc.getChildNodes();
-				parseNodeList(nl);
-				if (istok) System.out.println(filename);
+			if (file != null)
+			{				if (file.isFile())
+				{
+					istok = false;
+					filename = file.getAbsolutePath();
+					try
+					{
+						doc = db.parse(filename);
+						NodeList nl = doc.getChildNodes();
+						parseNodeList(nl);
+					}
+					catch (Exception e)
+					{
+						Protokol.write("GPXParser:parse:Exception:");
+						Protokol.write(e.toString());
+					}
+					if (istok) Protokol.write(filename);
+				}
 			}
 		}
+		Protokol.write("GPXParser:parse:ende:" + dir.getAbsolutePath());
 	}
 	public void parseNodeList(NodeList nl)
 	{
