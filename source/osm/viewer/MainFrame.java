@@ -19,6 +19,8 @@ public class MainFrame extends Menu implements PixelListener
 	private JButton butt1 = new JButton("+");
 	private JButton butt2  = new JButton("-");
 	private JButton butt3 = new JButton("@");
+	private JButton butt4 = new JButton("mark ul");
+	private JButton butt5 = new JButton("mark or");
 	//private JButton butt4 = new JButton("gpx");
 	private JMenuBar menu = new JMenuBar();
 	private JMenu m1 = new JMenu("Information");
@@ -32,7 +34,7 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m22 = new JMenuItem("RestorePosition");
 	private JMenuItem m23 = new JMenuItem("SaveMapAsPNG");
 	private JMenuItem m24 = new JMenuItem("SaveXMLData");
-	//private JMenuItem m31 = new JMenuItem("Open GPX Track");
+	private JMenuItem m31 = new JMenuItem("Search GPX Track Directory");
 	//private JMenuItem m32 = new JMenuItem("Close GPX Track");
 	private JMenuItem m33 = new JMenuItem("Load GPX Track");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
@@ -51,26 +53,29 @@ public class MainFrame extends Menu implements PixelListener
 	{
 		super("http://www.myoggradio.org/osmwv");
 		Protokol.write("MainFrame::Beginn");
-		bpan.setLayout(new GridLayout(1,3));
+		bpan.setLayout(new GridLayout(1,5));
 		bpan.add(butt1);
 		bpan.add(butt2);
 		bpan.add(butt3);
-		//bpan.add(butt4);
+		bpan.add(butt4);
+		bpan.add(butt5);
 		butt1.addActionListener(this);
 		butt2.addActionListener(this);
 		butt3.addActionListener(this);
-		//butt4.addActionListener(this);
+		butt4.addActionListener(this);
+		butt5.addActionListener(this);
 		butt1.setToolTipText("Increase Zoom");
 		butt2.setToolTipText("Decrease Zoom");
 		butt3.setToolTipText("Show local Websites");
-		//butt4.setToolTipText("Add Point to GPX Track");
+		butt4.setToolTipText("Markiert die untere linke Ecke eines Bereichs");
+		butt5.setToolTipText("Markiert die obere rechte Ecke eines Bereichs");
 		m11.addActionListener(this);
 		m12.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
 		m24.addActionListener(this);
-		//m31.addActionListener(this);
+		m31.addActionListener(this);
 		//m32.addActionListener(this);
 		m33.addActionListener(this);
 		m41.addActionListener(this);
@@ -86,7 +91,7 @@ public class MainFrame extends Menu implements PixelListener
 		m2.add(m22);
 		m2.add(m23);
 		m2.add(m24);
-		//m3.add(m31);
+		m3.add(m31);
 		//m3.add(m32);
 		m3.add(m33);
 		m4.add(m41);
@@ -359,12 +364,29 @@ public class MainFrame extends Menu implements PixelListener
 				}
 			}			
 		}
-		/*
-		if (quelle == m31) // Open GPX Track
+		if (quelle == m31) // Search GPX Track Directory
 		{
-			track = Factory.getGPXTrack();
-			JOptionPane.showMessageDialog(null,"GPX Track is now open","",JOptionPane.INFORMATION_MESSAGE);
+			JFileChooser chooser = new JFileChooser();
+			chooser.setCurrentDirectory(new java.io.File("."));
+			chooser.setDialogTitle("GPX Tracks Directory");
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    chooser.setAcceptAllFileFilterUsed(false);
+		    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) 
+		    {
+		    	File directory = chooser.getSelectedFile();
+		    	GPXParser parser = new GPXParser();
+		    	try
+		    	{
+		    		parser.parse(directory);
+		    	}
+		    	catch (Exception e)
+		    	{
+		    		Protokol.write("MainFrame:actionPerformed:m31:Exception:");
+		    		Protokol.write(e.toString());
+		    	}
+            }
 		}
+		/*
 		if (quelle == m32) // Close GPX Track
 		{
 			if (track == null)
@@ -518,25 +540,24 @@ public class MainFrame extends Menu implements PixelListener
 			viewer.start();
 			JOptionPane.showMessageDialog(null,"WebsiteViewer started. Please Wait","",JOptionPane.INFORMATION_MESSAGE);
 		}
-		/*
-		if (quelle == butt4) // gpx add Point
+		if (quelle == butt4) // markiere Bereich unten links
 		{
-			if (track != null)
-			{
-				koordinate.calculateLatLon();
-				double lat = koordinate.getLat();
-				double lon = koordinate.getLon();
-				String slat = util.getRound4(lat);
-				String slon = util.getRound4(lon);
-				track.addPoint(lat,lon);
-				Protokol.write("Point added: " + slat + ":" + slon);
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null,"You must Open GPX Track first","",JOptionPane.INFORMATION_MESSAGE);
-			}
+			koordinate.calculateLatLon();
+			double lat = koordinate.getLat();
+			double lon = koordinate.getLon();
+			Parameter.latul = lat;
+			Parameter.lonul = lon;
+			Protokol.write("Unten Links: " + lat + ":" + lon);
 		}
-		*/
+		if (quelle == butt5) // markiere Bereich oben rechts
+		{
+			koordinate.calculateLatLon();
+			double lat = koordinate.getLat();
+			double lon = koordinate.getLon();
+			Parameter.lator = lat;
+			Parameter.lonor = lon;
+			Protokol.write("Oben Rechts: " + lat + ":" + lon);
+		}
 		if (quelle == m41)
 		{
 			KachelCache kc = Factory.getKachelCache();
