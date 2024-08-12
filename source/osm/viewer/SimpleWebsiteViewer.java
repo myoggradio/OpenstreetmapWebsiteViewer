@@ -96,7 +96,8 @@ public class SimpleWebsiteViewer extends Thread implements WebsiteViewer
 			ArrayList<String> websites = xtw.getWebsite(in);
 			StringSorter sorter = Factory.getStringSorter();
 			websites = sorter.sort(websites);
-			File temp = File.createTempFile("osm",".html");
+			//File temp = File.createTempFile("osm",".html");
+			File temp = new File("osm1234567.html");
 			OutputStream os = new FileOutputStream(temp);
 			Protokol.write("SimpleWebsiteViewer:start:TempFile:");
 			Protokol.write(temp.getAbsolutePath());
