@@ -407,9 +407,18 @@ public class MainFrame extends Menu implements PixelListener
 		{
 			cache.resetRAM();
 			track = Factory.getGPXTrack();
-			track.readFromDatabase();
-			if (track != null) track.buildKoordinate(koordinate);
-			showIcon();			
+			boolean ok = track.readFromDatabase();
+			if (track == null) ok = false;
+			if (ok)
+			{
+				track.buildKoordinate(koordinate);
+			}
+			else
+			{
+				Protokol.write("MainFrame:actionPerformed:m32:Kein Track vorhanden");
+				track = null;
+			}
+			showIcon();
 		}
 		if (quelle == m33) // Load GPX Track from File
 		{
@@ -420,7 +429,9 @@ public class MainFrame extends Menu implements PixelListener
 				cache.resetRAM();
 				track = Factory.getGPXTrack();
 				track.readFromFile(file);
-				if (track != null) track.buildKoordinate(koordinate);
+				boolean ok = true;
+				if (track == null) ok = false;
+				if (ok) track.buildKoordinate(koordinate);
 				showIcon();
 			}			
 		}

@@ -86,8 +86,9 @@ public class SimpleGPXTrack implements GPXTrack
 		}
 	}
 	@Override
-	public void readFromDatabase() 
+	public boolean readFromDatabase() 
 	{
+		boolean erg = false;
 		init();
 		GPXPostgres postgres = new GPXPostgres();
 		ArrayList<Point> punkte = postgres.selectTrack();
@@ -95,7 +96,9 @@ public class SimpleGPXTrack implements GPXTrack
 		{
 			Point punkt = punkte.get(i);
 			addPoint(punkt.getLat(),punkt.getLon());
+			erg = true;
 		}
+		return erg;
 	}
 	public void explore(Element element)
 	{
