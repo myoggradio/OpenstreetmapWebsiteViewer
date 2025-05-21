@@ -27,12 +27,12 @@ public class SimpleKachel implements Kachel
 		if (track != null)
 		{
 			ArrayList<Point> punkte = track.getPoints();
-			for (int i=0;i<punkte.size() - 1;i++)
+			for (int i=0;i<punkte.size();i++)
 			{
 				Point p = punkte.get(i);
 				writePointOnIcon(p,new Color(255,255,0).getRGB());
 			}
-			writePointOnIcon(punkte.get(punkte.size()-1),new Color(255,0,0).getRGB());
+			writeKreuzOnIcon(punkte.get(punkte.size()-1),new Color(255,255,0).getRGB());
 		}
 		return icon; // Noch nicht fertig
 	}
@@ -56,6 +56,47 @@ public class SimpleKachel implements Kachel
 			for (int i=0;i<9;i++)
 			{
 				for (int j=0;j<9;j++)
+				{
+					int kpi = kp + i;
+					int kqj = kq + j;
+					if (kpi < 256)
+					{
+						if (kqj < 256)
+						{
+							setPixelOnIcon(kpi,kqj,rgb);
+						}
+					}
+				}
+			}
+		}
+	}
+	private void writeKreuzOnIcon(Point p,int rgb)
+	{
+		if (isOnKachel(p))
+		{
+			double dlat = ((plat - klatmin) / (klatmax - klatmin)) * 256;
+			double dlon = ((plon - klonmin) / (klonmax -klonmin)) * 256;
+			int kp = (int) dlon;
+			int kq = (int) dlat;
+			kq = 255 - kq;
+			for (int i=-50;i<50;i++)
+			{
+				for (int j =-2;j<2;j++)
+				{
+					int kpi = kp + i;
+					int kqj = kq + j;
+					if (kpi < 256)
+					{
+						if (kqj < 256)
+						{
+							setPixelOnIcon(kpi,kqj,rgb);
+						}
+					}
+				}
+			}
+			for (int i=-2;i<2;i++)
+			{
+				for (int j =-50;j<50;j++)
 				{
 					int kpi = kp + i;
 					int kqj = kq + j;
