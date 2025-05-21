@@ -35,8 +35,8 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m23 = new JMenuItem("SaveMapAsPNG");
 	private JMenuItem m24 = new JMenuItem("SaveXMLData");
 	private JMenuItem m31 = new JMenuItem("Search GPX Track Directory");
-	//private JMenuItem m32 = new JMenuItem("Close GPX Track");
-	private JMenuItem m33 = new JMenuItem("Load GPX Track");
+	private JMenuItem m32 = new JMenuItem("Load GPX Track from Database");
+	private JMenuItem m33 = new JMenuItem("Load GPX Track from File");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
 	private JMenuItem m42 = new JMenuItem("Shrink Cache");
 	private JMenuItem m51 = new JMenuItem("Position to Border");
@@ -76,7 +76,7 @@ public class MainFrame extends Menu implements PixelListener
 		m23.addActionListener(this);
 		m24.addActionListener(this);
 		m31.addActionListener(this);
-		//m32.addActionListener(this);
+		m32.addActionListener(this);
 		m33.addActionListener(this);
 		m41.addActionListener(this);
 		m42.addActionListener(this);
@@ -92,7 +92,7 @@ public class MainFrame extends Menu implements PixelListener
 		m2.add(m23);
 		m2.add(m24);
 		m3.add(m31);
-		//m3.add(m32);
+		m3.add(m32);
 		m3.add(m33);
 		m4.add(m41);
 		m4.add(m42);
@@ -155,22 +155,25 @@ public class MainFrame extends Menu implements PixelListener
 		Icon icon31 = k31.getIcon(track);
 		Icon icon32 = k32.getIcon(track);
 		Icon icon33 = k33.getIcon(track);
-		icon00.umrande(Color.CYAN);
-		icon01.umrande(Color.CYAN);
-		icon02.umrande(Color.CYAN);
-		icon03.umrande(Color.CYAN);
-		icon10.umrande(Color.CYAN);
-		icon11.umrande(Color.CYAN);
-		icon12.umrande(Color.CYAN);
-		icon13.umrande(Color.CYAN);
-		icon20.umrande(Color.CYAN);
-		icon21.umrande(Color.CYAN);
-		icon22.umrande(Color.CYAN);
-		icon23.umrande(Color.CYAN);
-		icon30.umrande(Color.CYAN);
-		icon31.umrande(Color.CYAN);
-		icon32.umrande(Color.CYAN);
-		icon33.umrande(Color.CYAN);
+		/*
+		Color grau = new Color(100,100,100);
+		icon00.umrande(grau);
+		icon01.umrande(grau);
+		icon02.umrande(grau);
+		icon03.umrande(grau);
+		icon10.umrande(grau);
+		icon11.umrande(grau);
+		icon12.umrande(grau);
+		icon13.umrande(grau);
+		icon20.umrande(grau);
+		icon21.umrande(grau);
+		icon22.umrande(grau);
+		icon23.umrande(grau);
+		icon30.umrande(grau);
+		icon31.umrande(grau);
+		icon32.umrande(grau);
+		icon33.umrande(grau);
+		*/
 		Icon icon16 = Factory.getIcon();
 		icon16.build16(icon00,icon01,icon02,icon03,icon10,icon11,icon12,icon13,icon20,icon21,icon22,icon23,icon30,icon31,icon32,icon33);
 		icon = icon16.clip16(koordinate.getP(),koordinate.getQ());
@@ -400,7 +403,15 @@ public class MainFrame extends Menu implements PixelListener
 			}
 		}
 		*/
-		if (quelle == m33) // Load GPX Track
+		if (quelle == m32) // Load GPX Track from Database
+		{
+			cache.resetRAM();
+			track = Factory.getGPXTrack();
+			track.readFromDatabase();
+			if (track != null) track.buildKoordinate(koordinate);
+			showIcon();			
+		}
+		if (quelle == m33) // Load GPX Track from File
 		{
 			FileChooser fc = Factory.getFileChooser();
 			File file = fc.getGPXFile();

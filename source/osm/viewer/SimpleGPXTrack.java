@@ -85,6 +85,18 @@ public class SimpleGPXTrack implements GPXTrack
 			System.out.println(e.toString());
 		}
 	}
+	@Override
+	public void readFromDatabase() 
+	{
+		init();
+		GPXPostgres postgres = new GPXPostgres();
+		ArrayList<Point> punkte = postgres.selectTrack();
+		for (int i=0;i<punkte.size();i++)
+		{
+			Point punkt = punkte.get(i);
+			addPoint(punkt.getLat(),punkt.getLon());
+		}
+	}
 	public void explore(Element element)
 	{
 		NodeList nodeList = element.getChildNodes();
@@ -171,6 +183,28 @@ public class SimpleGPXTrack implements GPXTrack
 		for (int i=0;i<punkte.size();i++)
 		{
 			Point punkt = punkte.get(i);
+			lat = punkt.getLat();
+			lon = punkt.getLon();
+		}
+		System.out.println("SimpleGPXTrack:buildKoordinate:");
+		System.out.println(lat + ":" + lon);
+		koordinate.set(lat,lon,16);
+		koordinate.setX(koordinate.getX());
+		koordinate.setY(koordinate.getY()-1);
+		koordinate.setP(208);
+		koordinate.setQ(128);
+		koordinate.calculateLatLon();
+	}
+	/*
+	@Override
+	public void buildKoordinate(Koordinate koordinate) 
+	{
+		int n = punkte.size();
+		double lat = 0.0;
+		double lon = 0.0;
+		for (int i=0;i<punkte.size();i++)
+		{
+			Point punkt = punkte.get(i);
 			lat += punkt.getLat();
 			lon += punkt.getLon();
 		}
@@ -181,4 +215,5 @@ public class SimpleGPXTrack implements GPXTrack
 		System.out.println(lat + ":" + lon);
 		koordinate.set(lat,lon,11);
 	}
+	*/
 }

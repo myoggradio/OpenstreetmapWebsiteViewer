@@ -1,14 +1,13 @@
 package osm.viewer;
-import java.awt.Color;
 import core.*;
 public class SimplePixel implements Pixel
 {
 	private int x = 0;
 	private int y = 0;
-	private Color c = Color.red;
-	public Color getColor() 
+	private int rgb = 0;
+	public int getRGB()
 	{
-		return c;
+		return rgb;
 	}
 	public int getX() 
 	{
@@ -18,9 +17,9 @@ public class SimplePixel implements Pixel
 	{
 		return y;
 	}
-	public void setColor(Color c) 
+	public void setRGB(int i)
 	{
-		this.c = c;
+		rgb = i;
 	}
 	public void setX(int x) 
 	{
@@ -35,12 +34,12 @@ public class SimplePixel implements Pixel
 		Pixel erg = Factory.getPixel();
 		erg.setX(x);
 		erg.setY(y);
-		erg.setColor(c);
+		erg.setRGB(rgb);
 		return erg;
 	}
 	public String toString()
 	{
-		String erg = x + "." + y + ":" + c.toString();
+		String erg = x + "." + y + ":" + rgb;
 		return erg;
 	}
 }

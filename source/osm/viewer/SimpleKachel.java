@@ -27,23 +27,24 @@ public class SimpleKachel implements Kachel
 		if (track != null)
 		{
 			ArrayList<Point> punkte = track.getPoints();
-			for (int i=0;i<punkte.size();i++)
+			for (int i=0;i<punkte.size() - 1;i++)
 			{
 				Point p = punkte.get(i);
-				writePointOnIcon(p);
+				writePointOnIcon(p,new Color(255,255,0).getRGB());
 			}
+			writePointOnIcon(punkte.get(punkte.size()-1),new Color(255,0,0).getRGB());
 		}
 		return icon; // Noch nicht fertig
 	}
-	private void setPixelOnIcon(int kp,int kq)
+	private void setPixelOnIcon(int kp,int kq,int rgb)
 	{
 		Pixel pixel = Factory.getPixel();
 		pixel.setX(kp);
 		pixel.setY(kq);
-		pixel.setColor(Color.CYAN);
+		pixel.setRGB(rgb);
 		icon.setPixel(pixel);
 	}
-	private void writePointOnIcon(Point p)
+	private void writePointOnIcon(Point p,int rgb)
 	{
 		if (isOnKachel(p))
 		{
@@ -52,9 +53,9 @@ public class SimpleKachel implements Kachel
 			int kp = (int) dlon;
 			int kq = (int) dlat;
 			kq = 255 - kq;
-			for (int i=0;i<7;i++)
+			for (int i=0;i<9;i++)
 			{
-				for (int j=0;j<7;j++)
+				for (int j=0;j<9;j++)
 				{
 					int kpi = kp + i;
 					int kqj = kq + j;
@@ -62,7 +63,7 @@ public class SimpleKachel implements Kachel
 					{
 						if (kqj < 256)
 						{
-							setPixelOnIcon(kpi,kqj);
+							setPixelOnIcon(kpi,kqj,rgb);
 						}
 					}
 				}

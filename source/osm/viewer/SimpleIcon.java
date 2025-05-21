@@ -108,7 +108,7 @@ public class SimpleIcon implements Icon
 		{
 			for (int j=0;j<512;j++)
 			{
-				erg.pixel[i][j] = icon.getPixel(i,j).getColor().getRGB();
+				erg.pixel[i][j] = icon.getPixel(i,j).getRGB();
 				if (i==256)
 				{
 					if (j>231 && j<281)
@@ -138,7 +138,7 @@ public class SimpleIcon implements Icon
 		{
 			for (int j=0;j<768;j++)
 			{
-				erg.pixel[i][j] = icon.getPixel(i,j).getColor().getRGB();
+				erg.pixel[i][j] = icon.getPixel(i,j).getRGB();
 				if (i==384)
 				{
 					if (j>359 && j<409)
@@ -166,63 +166,63 @@ public class SimpleIcon implements Icon
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j] = i00.getPixel(i,j).getColor().getRGB();
+				pixel[i][j] = i00.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j+256] = i10.getPixel(i,j).getColor().getRGB();
+				pixel[i][j+256] = i10.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j+512] = i20.getPixel(i,j).getColor().getRGB();
+				pixel[i][j+512] = i20.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j] = i01.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j] = i01.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j+256] = i11.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j+256] = i11.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j+512] = i21.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j+512] = i21.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j] = i02.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j] = i02.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j+256] = i12.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j+256] = i12.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j+512] = i22.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j+512] = i22.getPixel(i,j).getRGB();
 			}
 		}
 	}
@@ -235,112 +235,112 @@ public class SimpleIcon implements Icon
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j] = i00.getPixel(i,j).getColor().getRGB();
+				pixel[i][j] = i00.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j+256] = i10.getPixel(i,j).getColor().getRGB();
+				pixel[i][j+256] = i10.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j+512] = i20.getPixel(i,j).getColor().getRGB();
+				pixel[i][j+512] = i20.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i][j+768] = i30.getPixel(i,j).getColor().getRGB();
+				pixel[i][j+768] = i30.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j] = i01.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j] = i01.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j+256] = i11.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j+256] = i11.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j+512] = i21.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j+512] = i21.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+256][j+768] = i31.getPixel(i,j).getColor().getRGB();
+				pixel[i+256][j+768] = i31.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j] = i02.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j] = i02.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j+256] = i12.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j+256] = i12.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j+512] = i22.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j+512] = i22.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+512][j+768] = i32.getPixel(i,j).getColor().getRGB();
+				pixel[i+512][j+768] = i32.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+768][j] = i03.getPixel(i,j).getColor().getRGB();
+				pixel[i+768][j] = i03.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+768][j+256] = i13.getPixel(i,j).getColor().getRGB();
+				pixel[i+768][j+256] = i13.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+768][j+512] = i23.getPixel(i,j).getColor().getRGB();
+				pixel[i+768][j+512] = i23.getPixel(i,j).getRGB();
 			}
 		}
 		for (int i=0;i<256;i++)
 		{
 			for (int j=0;j<256;j++)
 			{
-				pixel[i+768][j+768] = i33.getPixel(i,j).getColor().getRGB();
+				pixel[i+768][j+768] = i33.getPixel(i,j).getRGB();
 			}
 		}
 	}
@@ -388,7 +388,7 @@ public class SimpleIcon implements Icon
 		{
 			if (y < height)
 			{
-				p.setColor(new Color(pixel[x][y]));
+				p.setRGB(pixel[x][y]);
 			}
 		}
 		return p;
@@ -457,12 +457,11 @@ public class SimpleIcon implements Icon
 	{
 		int x = p.getX();
 		int y = p.getY();
-		Color c = p.getColor();
 		if (x < 768 && y < 768)
 		{
 			if (x >= 0 && y >= 0)
 			{
-				pixel[x][y] = c.getRGB();
+				pixel[x][y] = p.getRGB();
 			}
 		}
 	}
@@ -537,14 +536,19 @@ public class SimpleIcon implements Icon
 	@Override
 	public void paintGPX(GPXTrack track,Koordinate koordinate) 
 	{
+		boolean letzter = false;
 		ArrayList<Point> points = track.getPoints();
 		for (int i=0;i<points.size();i++)
 		{
 			Point point = points.get(i);
-			paintPoint(point,koordinate);
+			if (i == points.size() - 1) 
+			{
+				letzter = true;
+			}
+			else paintPoint(point,koordinate,letzter);
 		}
 	}
-	public void paintPoint(Point point,Koordinate koordinate)
+	public void paintPoint(Point point,Koordinate koordinate,boolean letzter)
 	{
 		Koordinate k2 = Factory.getKoordinate();
 		k2.set(point.getLat(),point.getLon(),koordinate.getZ());
@@ -562,10 +566,70 @@ public class SimpleIcon implements Icon
 		int dq = q2 - q;
 		dp += 256 * dx;
 		dq += 256 * dy;
+		Color color1 = new Color(10,200,10);
+		if (letzter) color1 = new Color(200,10,10);
 		Pixel pixel = Factory.getPixel();
 		pixel.setX(dp);
 		pixel.setY(dq);
-		pixel.setColor(Color.RED);
+		pixel.setRGB(color1.getRGB());
+		setPixel(pixel);
+		//
+		Color color2 = new Color(10,200,10);
+		if (letzter) color2 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+1);
+		pixel.setY(dq);
+		pixel.setRGB(color2.getRGB());
+		setPixel(pixel);
+		Color color3 = new Color(10,200,10);
+		if (letzter) color3 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp);
+		pixel.setY(dq+1);
+		pixel.setRGB(color3.getRGB());
+		setPixel(pixel);
+		Color color4 = new Color(10,200,10);
+		if (letzter) color4 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+1);
+		pixel.setY(dq+1);
+		pixel.setRGB(color4.getRGB());
+		setPixel(pixel);
+		//
+		Color color5 = new Color(10,200,10);
+		if (letzter) color5 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+2);
+		pixel.setY(dq);
+		pixel.setRGB(color5.getRGB());
+		setPixel(pixel);
+		Color color6 = new Color(10,200,10);
+		if (letzter) color6 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp);
+		pixel.setY(dq+2);
+		pixel.setRGB(color6.getRGB());
+		setPixel(pixel);
+		Color color7 = new Color(10,200,10);
+		if (letzter) color7 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+2);
+		pixel.setY(dq+2);
+		pixel.setRGB(color7.getRGB());
+		setPixel(pixel);
+		Color color8 = new Color(10,200,10);
+		if (letzter) color8 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+1);
+		pixel.setY(dq+2);
+		pixel.setRGB(color8.getRGB());
+		setPixel(pixel);
+		Color color9 = new Color(10,200,10);
+		if (letzter) color9 = new Color(200,10,10);
+		pixel = Factory.getPixel();
+		pixel.setX(dp+2);
+		pixel.setY(dq+1);
+		pixel.setRGB(color9.getRGB());
 		setPixel(pixel);
 	}
 }
