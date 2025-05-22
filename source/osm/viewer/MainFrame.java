@@ -129,6 +129,7 @@ public class MainFrame extends Menu implements PixelListener
 	{
 		this.track = track;
 		track.buildKoordinate(koordinate);
+		cache.resetRAM();
 		showIcon();
 	}
 	public void showIcon()
