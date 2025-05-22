@@ -129,6 +129,27 @@ public class GPXPostgres
         }
         return erg;
     }
+    public String deleteTrackWithId(long id)
+    {
+    	String erg = null;
+    	if (con == null) connect();
+    	String sql = "delete from zeit_track where track_datum = ?";
+        try 
+        {
+        	Protokol.write(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+            stmt.close();
+        } 
+        catch (Exception e) 
+        {
+            Protokol.write("GPXPostgres:deleteTrackWithId:Exception:");
+            Protokol.write(e.toString());
+            erg = e.toString();
+        }
+        return erg;
+    }
     public ArrayList<Point> selectTrackWithId(long id) 
     {
         if (con == null) connect();

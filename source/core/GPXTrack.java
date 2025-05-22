@@ -11,6 +11,7 @@ public interface GPXTrack
 	public void readFromFile(File file);
 	public boolean readFromDatabase();
 	public boolean readFromDatabaseWithId(long id);
+	public boolean deleteFromDatabaseWithId(long id);
 	public void buildKoordinate(Koordinate koordinate);
 	public ArrayList<Point> getPoints();
 }

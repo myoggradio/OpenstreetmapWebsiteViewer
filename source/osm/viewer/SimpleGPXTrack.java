@@ -114,6 +114,23 @@ public class SimpleGPXTrack implements GPXTrack
 		}
 		return erg;
 	}
+	public boolean deleteFromDatabaseWithId(long id) 
+	{
+		boolean erg = false;
+		init();
+		GPXPostgres postgres = new GPXPostgres();
+		String ok = postgres.deleteTrackWithId(id);
+		if (ok == null)
+		{
+			erg = true;
+		}
+		else
+		{
+			erg = false;
+			Protokol.write(ok);
+		}
+		return erg;
+	}
 	public void explore(Element element)
 	{
 		NodeList nodeList = element.getChildNodes();
@@ -194,7 +211,6 @@ public class SimpleGPXTrack implements GPXTrack
 	@Override
 	public void buildKoordinate(Koordinate koordinate) 
 	{
-		int n = punkte.size();
 		double lat = 0.0;
 		double lon = 0.0;
 		for (int i=0;i<punkte.size();i++)
@@ -203,8 +219,8 @@ public class SimpleGPXTrack implements GPXTrack
 			lat = punkt.getLat();
 			lon = punkt.getLon();
 		}
-		System.out.println("SimpleGPXTrack:buildKoordinate:");
-		System.out.println(lat + ":" + lon);
+		Protokol.write("SimpleGPXTrack:buildKoordinate:");
+		Protokol.write(lat + ":" + lon);
 		koordinate.set(lat,lon,16);
 		koordinate.setX(koordinate.getX());
 		koordinate.setY(koordinate.getY()-1);
