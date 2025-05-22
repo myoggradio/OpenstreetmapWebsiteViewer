@@ -37,6 +37,8 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m31 = new JMenuItem("Search GPX Track Directory");
 	private JMenuItem m32 = new JMenuItem("Load GPX Track from Database");
 	private JMenuItem m33 = new JMenuItem("Load GPX Track from File");
+	private JMenuItem m34 = new JMenuItem("Withdraw Database Track");
+	private JMenuItem m35 = new JMenuItem("Persist Database Track");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
 	private JMenuItem m42 = new JMenuItem("Shrink Cache");
 	private JMenuItem m51 = new JMenuItem("Position to Border");
@@ -78,6 +80,8 @@ public class MainFrame extends Menu implements PixelListener
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		m33.addActionListener(this);
+		m34.addActionListener(this);
+		m35.addActionListener(this);
 		m41.addActionListener(this);
 		m42.addActionListener(this);
 		m51.addActionListener(this);
@@ -94,6 +98,8 @@ public class MainFrame extends Menu implements PixelListener
 		m3.add(m31);
 		m3.add(m32);
 		m3.add(m33);
+		m3.add(m34);
+		m3.add(m35);
 		m4.add(m41);
 		m4.add(m42);
 		m5.add(m51);
@@ -434,6 +440,38 @@ public class MainFrame extends Menu implements PixelListener
 				if (ok) track.buildKoordinate(koordinate);
 				showIcon();
 			}			
+		}
+		if (quelle == m34) //Withdraw Dtabase Track
+		{
+			GPXPostgres postgres = new GPXPostgres();
+			String ok = postgres.loescheAktuellenTrack();
+			if (ok == null)
+			{
+				JOptionPane.showMessageDialog(null,"GPX Track deleted from Database","",JOptionPane.INFORMATION_MESSAGE);	
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,ok,"",JOptionPane.ERROR_MESSAGE);	
+			}
+			postgres.close();
+		}
+		if (quelle == m35) //Persist Database Track
+		{
+			GPXPostgres postgres = new GPXPostgres();
+			String ok = postgres.copyAktuellenTrack();
+			if (ok == null)
+			{
+				ok = postgres.loescheAktuellenTrack();
+			}
+			if (ok == null)
+			{
+				JOptionPane.showMessageDialog(null,"GPX Track persisted in Database","",JOptionPane.INFORMATION_MESSAGE);	
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,ok,"",JOptionPane.ERROR_MESSAGE);	
+			}
+			postgres.close();
 		}
 		if (quelle == butt1) // Zoom +
 		{

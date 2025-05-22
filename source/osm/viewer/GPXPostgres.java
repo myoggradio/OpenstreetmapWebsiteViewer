@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+
 import core.Point;
 
 import core.Protokol;
@@ -54,6 +56,47 @@ public class GPXPostgres
     		Protokol.write("Postgres:close:Exception:");
     		Protokol.write(e.toString());
 		}
+    }
+    public String loescheAktuellenTrack()
+    {
+    	String erg = null;
+    	if (con == null) connect();
+    	String sql = "delete from track";
+        try 
+        {
+        	Protokol.write(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.executeUpdate();
+            stmt.close();
+        } 
+        catch (Exception e) 
+        {
+            Protokol.write("GPXPostgres:loescheAktuellenTrack:Exception:");
+            Protokol.write(e.toString());
+            erg = e.toString();
+        }
+        return erg;
+    }
+    public String copyAktuellenTrack()
+    {
+    	String erg = null;
+    	if (con == null) connect();
+    	String sql = "insert into zeit_track select lat,lon,ele,datum,? from track";
+        try 
+        {
+        	Protokol.write(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1,new Date().getTime());
+            stmt.executeUpdate();
+            stmt.close();
+        } 
+        catch (Exception e) 
+        {
+            Protokol.write("GPXPostgres:copyAktuellenTrack:Exception:");
+            Protokol.write(e.toString());
+            erg = e.toString();
+        }
+        return erg;
     }
     public ArrayList<Point> selectTrack() 
     {
