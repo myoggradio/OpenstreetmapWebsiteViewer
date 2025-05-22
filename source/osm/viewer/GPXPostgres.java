@@ -129,4 +129,64 @@ public class GPXPostgres
         }
         return erg;
     }
+    public ArrayList<Point> selectTrackWithId(long id) 
+    {
+        if (con == null) connect();
+    	ArrayList<Point> erg = new ArrayList<Point>();
+        ResultSet rs = null;
+        String sql = "Select lat,lon";
+        sql += " from zeit_track";
+        sql += " where track_datum = ?";
+        sql += " order by datum";
+        try 
+        {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+            	double lat = rs.getDouble(1);
+            	double lon = rs.getDouble(2);
+            	Point punkt = new Point();
+            	punkt.setLon(lon);
+            	punkt.setLat(lat);
+            	erg.add(punkt);
+            }
+            rs.close();
+            stmt.close();
+        } 
+        catch (Exception e) 
+        {
+            Protokol.write("GPXPostgres:selectTrackWithId:Exception:");
+            Protokol.write(e.toString());
+        }
+        return erg;
+    }
+    public ArrayList<Long> selectDistinczTrackDatum() 
+    {
+        if (con == null) connect();
+    	ArrayList<Long> erg = new ArrayList<Long>();
+        ResultSet rs = null;
+        String sql = "Select distinct track_datum";
+        sql += " from zeit_track";
+        sql += " order by track_datum";
+        try 
+        {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+            	Long track_datum = rs.getLong(1);
+            	erg.add(track_datum);
+            }
+            rs.close();
+            stmt.close();
+        } 
+        catch (Exception e) 
+        {
+            Protokol.write("GPXPostgres:selectDistintTrackDatum:Exception:");
+            Protokol.write(e.toString());
+        }
+        return erg;
+    }
 }

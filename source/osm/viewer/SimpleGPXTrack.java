@@ -100,6 +100,20 @@ public class SimpleGPXTrack implements GPXTrack
 		}
 		return erg;
 	}
+	public boolean readFromDatabaseWithId(long id) 
+	{
+		boolean erg = false;
+		init();
+		GPXPostgres postgres = new GPXPostgres();
+		ArrayList<Point> punkte = postgres.selectTrackWithId(id);
+		for (int i=0;i<punkte.size();i++)
+		{
+			Point punkt = punkte.get(i);
+			addPoint(punkt.getLat(),punkt.getLon());
+			erg = true;
+		}
+		return erg;
+	}
 	public void explore(Element element)
 	{
 		NodeList nodeList = element.getChildNodes();

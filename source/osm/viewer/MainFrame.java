@@ -39,6 +39,7 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m33 = new JMenuItem("Load GPX Track from File");
 	private JMenuItem m34 = new JMenuItem("Withdraw Database Track");
 	private JMenuItem m35 = new JMenuItem("Persist Database Track");
+	private JMenuItem m36 = new JMenuItem("Database Tracks...");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
 	private JMenuItem m42 = new JMenuItem("Shrink Cache");
 	private JMenuItem m51 = new JMenuItem("Position to Border");
@@ -82,6 +83,7 @@ public class MainFrame extends Menu implements PixelListener
 		m33.addActionListener(this);
 		m34.addActionListener(this);
 		m35.addActionListener(this);
+		m36.addActionListener(this);
 		m41.addActionListener(this);
 		m42.addActionListener(this);
 		m51.addActionListener(this);
@@ -100,6 +102,7 @@ public class MainFrame extends Menu implements PixelListener
 		m3.add(m33);
 		m3.add(m34);
 		m3.add(m35);
+		m3.add(m36);
 		m4.add(m41);
 		m4.add(m42);
 		m5.add(m51);
@@ -121,6 +124,12 @@ public class MainFrame extends Menu implements PixelListener
 		cpan.add(info,BorderLayout.SOUTH);
 		setContentPane(cpan);
 		Protokol.write("MainFrame::End");
+	}
+	public void setTrack(GPXTrack track)
+	{
+		this.track = track;
+		track.buildKoordinate(koordinate);
+		showIcon();
 	}
 	public void showIcon()
 	{
@@ -472,6 +481,15 @@ public class MainFrame extends Menu implements PixelListener
 				JOptionPane.showMessageDialog(null,ok,"",JOptionPane.ERROR_MESSAGE);	
 			}
 			postgres.close();
+		}
+		if (quelle == m36) //Database Tracks..
+		{
+			GPXPostgres postgres = new GPXPostgres();
+			ArrayList<Long> tracks = postgres.selectDistinczTrackDatum();
+			postgres.close();
+			TracksMenu tm = new TracksMenu();
+			tm.setTracks(tracks,this);
+			tm.anzeigen();
 		}
 		if (quelle == butt1) // Zoom +
 		{
