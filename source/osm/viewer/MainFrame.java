@@ -486,7 +486,7 @@ public class MainFrame extends Menu implements PixelListener
 		if (quelle == m36) //Database Tracks..
 		{
 			GPXPostgres postgres = new GPXPostgres();
-			ArrayList<Long> tracks = postgres.selectDistinczTrackDatum();
+			ArrayList<Long> tracks = postgres.selectDistinctTrackDatum();
 			postgres.close();
 			TracksMenu tm = new TracksMenu();
 			tm.setTracks(tracks,this);

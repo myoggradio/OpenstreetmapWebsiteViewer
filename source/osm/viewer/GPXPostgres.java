@@ -79,16 +79,26 @@ public class GPXPostgres
     }
     public String copyAktuellenTrack()
     {
+    	long jetzt = new Date().getTime();
     	String erg = null;
     	if (con == null) connect();
-    	String sql = "insert into zeit_track select lat,lon,ele,datum,? from track";
         try 
         {
+           	String sql = "insert into zeit_track select lat,lon,ele,datum,? from track";
         	Protokol.write(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setLong(1,new Date().getTime());
+            stmt.setLong(1,jetzt);
             stmt.executeUpdate();
             stmt.close();
+         	String sql2 = "insert into zeit_track_inventory (";
+        	sql2 += " track_datum";
+        	sql2 += ")";
+        	sql2 += " values (?)";
+        	Protokol.write(sql2);
+            PreparedStatement stmt2 = con.prepareStatement(sql2);
+            stmt2.setLong(1,jetzt);
+            stmt2.executeUpdate();
+            stmt2.close();
         } 
         catch (Exception e) 
         {
@@ -133,14 +143,20 @@ public class GPXPostgres
     {
     	String erg = null;
     	if (con == null) connect();
-    	String sql = "delete from zeit_track where track_datum = ?";
         try 
         {
+         	String sql = "delete from zeit_track where track_datum = ?";
         	Protokol.write(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
             stmt.executeUpdate();
             stmt.close();
+         	String sql2 = "delete from zeit_track_inventory where track_datum = ?";
+        	Protokol.write(sql2);
+            PreparedStatement stmt2 = con.prepareStatement(sql2);
+            stmt2.setLong(1, id);
+            stmt2.executeUpdate();
+            stmt2.close();
         } 
         catch (Exception e) 
         {
@@ -183,13 +199,13 @@ public class GPXPostgres
         }
         return erg;
     }
-    public ArrayList<Long> selectDistinczTrackDatum() 
+    public ArrayList<Long> selectDistinctTrackDatum() 
     {
         if (con == null) connect();
     	ArrayList<Long> erg = new ArrayList<Long>();
         ResultSet rs = null;
-        String sql = "Select distinct track_datum";
-        sql += " from zeit_track";
+        String sql = "Select track_datum";
+        sql += " from zeit_track_inventory";
         sql += " order by track_datum";
         try 
         {
