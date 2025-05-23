@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import core.Parameter;
 import core.Point;
 
 import core.Protokol;
@@ -61,11 +62,12 @@ public class GPXPostgres
     {
     	String erg = null;
     	if (con == null) connect();
-    	String sql = "delete from track";
+    	String sql = "delete from track where benutzer = ?";
         try 
         {
         	Protokol.write(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, Parameter.benutzer);
             stmt.executeUpdate();
             stmt.close();
         } 
@@ -84,19 +86,21 @@ public class GPXPostgres
     	if (con == null) connect();
         try 
         {
-           	String sql = "insert into zeit_track select lat,lon,ele,datum,? from track";
+           	String sql = "insert into zeit_track select lat,lon,ele,datum,?,benutzer from track where benutzer = ?";
         	Protokol.write(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1,jetzt);
+            stmt.setString(2, Parameter.benutzer);
             stmt.executeUpdate();
             stmt.close();
          	String sql2 = "insert into zeit_track_inventory (";
-        	sql2 += " track_datum";
+        	sql2 += " track_datum,benutzer";
         	sql2 += ")";
-        	sql2 += " values (?)";
+        	sql2 += " values (?,?)";
         	Protokol.write(sql2);
             PreparedStatement stmt2 = con.prepareStatement(sql2);
             stmt2.setLong(1,jetzt);
+            stmt2.setString(2, Parameter.benutzer);
             stmt2.executeUpdate();
             stmt2.close();
         } 
@@ -114,11 +118,12 @@ public class GPXPostgres
     	ArrayList<Point> erg = new ArrayList<Point>();
         ResultSet rs = null;
         String sql = "Select lat,lon";
-        sql += " from track";
+        sql += " from track where benutzer = ?";
         sql += " order by datum";
         try 
         {
             PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,Parameter.benutzer);
             rs = stmt.executeQuery();
             while (rs.next())
             {
@@ -145,16 +150,18 @@ public class GPXPostgres
     	if (con == null) connect();
         try 
         {
-         	String sql = "delete from zeit_track where track_datum = ?";
+         	String sql = "delete from zeit_track where track_datum = ? and benutzer = ?";
         	Protokol.write(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
+            stmt.setString(2, Parameter.benutzer);
             stmt.executeUpdate();
             stmt.close();
-         	String sql2 = "delete from zeit_track_inventory where track_datum = ?";
+         	String sql2 = "delete from zeit_track_inventory where track_datum = ? and benutzer = ?";
         	Protokol.write(sql2);
             PreparedStatement stmt2 = con.prepareStatement(sql2);
             stmt2.setLong(1, id);
+            stmt2.setString(2, Parameter.benutzer);
             stmt2.executeUpdate();
             stmt2.close();
         } 
@@ -173,12 +180,13 @@ public class GPXPostgres
         ResultSet rs = null;
         String sql = "Select lat,lon";
         sql += " from zeit_track";
-        sql += " where track_datum = ?";
+        sql += " where track_datum = ? and benutzer = ?";
         sql += " order by datum";
         try 
         {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
+            stmt.setString(2, Parameter.benutzer);
             rs = stmt.executeQuery();
             while (rs.next())
             {
@@ -205,11 +213,12 @@ public class GPXPostgres
     	ArrayList<Long> erg = new ArrayList<Long>();
         ResultSet rs = null;
         String sql = "Select track_datum";
-        sql += " from zeit_track_inventory";
+        sql += " from zeit_track_inventory where benutzer = ?";
         sql += " order by track_datum";
         try 
         {
             PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, Parameter.benutzer);
             rs = stmt.executeQuery();
             while (rs.next())
             {

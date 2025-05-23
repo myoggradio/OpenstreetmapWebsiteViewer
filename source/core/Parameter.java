@@ -1,7 +1,7 @@
 package core;
 public class Parameter 
 {
-	public static String version = "Version 0.38 23.05.2025";
+	public static String version = "Version 0.39 23.05.2025";
 	public static double delta = 0.009;
 	public static String cachedir = "/";
 	public static long getKachel = 0;
@@ -13,5 +13,6 @@ public class Parameter
 	public static double lator = 0.0;
 	public static double lonul = 0.0;
 	public static double lonor = 0.0;
+	public static String benutzer = "christian";
 	public static String apikey="2f5cfc26c3f247338c829d8e9d1e637e";
 }
