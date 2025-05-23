@@ -40,6 +40,7 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m34 = new JMenuItem("Withdraw Database Track");
 	private JMenuItem m35 = new JMenuItem("Persist Database Track");
 	private JMenuItem m36 = new JMenuItem("Database Tracks...");
+	private JMenuItem m37 = new JMenuItem("Change User..");
 	private JMenuItem m41 = new JMenuItem("Statistik...");
 	private JMenuItem m42 = new JMenuItem("Shrink Cache");
 	private JMenuItem m51 = new JMenuItem("Position to Border");
@@ -84,6 +85,7 @@ public class MainFrame extends Menu implements PixelListener
 		m34.addActionListener(this);
 		m35.addActionListener(this);
 		m36.addActionListener(this);
+		m37.addActionListener(this);
 		m41.addActionListener(this);
 		m42.addActionListener(this);
 		m51.addActionListener(this);
@@ -103,6 +105,7 @@ public class MainFrame extends Menu implements PixelListener
 		m3.add(m34);
 		m3.add(m35);
 		m3.add(m36);
+		m3.add(m37);
 		m4.add(m41);
 		m4.add(m42);
 		m5.add(m51);
@@ -491,6 +494,11 @@ public class MainFrame extends Menu implements PixelListener
 			TracksMenu tm = new TracksMenu();
 			tm.setTracks(tracks,this);
 			tm.anzeigen();
+		}
+		if (quelle == m37) //change User..
+		{
+			BenutzerMenu bm = new BenutzerMenu();
+			bm.anzeigen();
 		}
 		if (quelle == butt1) // Zoom +
 		{

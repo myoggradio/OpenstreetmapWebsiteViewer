@@ -1,5 +1,7 @@
 package osm.viewer;
 import java.io.File;
+import java.util.prefs.Preferences;
+
 import core.*;
 public class Main 
 {
@@ -16,7 +18,10 @@ public class Main
 		{
 			Protokol.write("Main:main:will create cachedir");
 			dir.mkdir();
-		}	
+		}
+		Preferences prefs = Preferences.userRoot();
+		Parameter.benutzer = prefs.get("benutzer","christian");
+		Protokol.write("Benutzer: " + Parameter.benutzer);
 		MainFrame mf = new MainFrame();
 		mf.anzeigen();
 	}
