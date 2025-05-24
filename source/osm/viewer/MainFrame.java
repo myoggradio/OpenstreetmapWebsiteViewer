@@ -37,6 +37,7 @@ public class MainFrame extends Menu implements PixelListener
 	private JMenuItem m31 = new JMenuItem("Search GPX Track Directory");
 	private JMenuItem m32 = new JMenuItem("Load GPX Track from Database");
 	private JMenuItem m33 = new JMenuItem("Load GPX Track from File");
+	private JMenuItem m33a = new JMenuItem("Write GPX Track to File");
 	private JMenuItem m34 = new JMenuItem("Withdraw Database Track");
 	private JMenuItem m35 = new JMenuItem("Persist Database Track");
 	private JMenuItem m36 = new JMenuItem("Database Tracks...");
@@ -82,6 +83,7 @@ public class MainFrame extends Menu implements PixelListener
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		m33.addActionListener(this);
+		m33a.addActionListener(this);
 		m34.addActionListener(this);
 		m35.addActionListener(this);
 		m36.addActionListener(this);
@@ -102,6 +104,7 @@ public class MainFrame extends Menu implements PixelListener
 		m3.add(m31);
 		m3.add(m32);
 		m3.add(m33);
+		m3.add(m33a);
 		m3.add(m34);
 		m3.add(m35);
 		m3.add(m36);
@@ -408,20 +411,18 @@ public class MainFrame extends Menu implements PixelListener
 		    	}
             }
 		}
-		/*
-		if (quelle == m32) // Close GPX Track
+		if (quelle == m33a) // Write GPX Track to File
 		{
 			if (track == null)
 			{
-				JOptionPane.showMessageDialog(null,"You must Open GPX Track first","",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Bitte zuerst einen Track auswaehlen","",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
 				track.writeToFile();
-				track = null;
+				JOptionPane.showMessageDialog(null,"Write to File beendet","",JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		*/
 		if (quelle == m32) // Load GPX Track from Database
 		{
 			cache.resetRAM();

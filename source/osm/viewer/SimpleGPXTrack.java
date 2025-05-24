@@ -1,5 +1,7 @@
 package osm.viewer;
 import java.io.*;
+import java.text.SimpleDateFormat;
+
 import core.*;
 import java.util.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -8,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 public class SimpleGPXTrack implements GPXTrack
 {
 	private Util util = Factory.getUtil();
@@ -162,14 +165,41 @@ public class SimpleGPXTrack implements GPXTrack
 		{
 			try
 			{
-				Writer writer = new FileWriter(file);
-				BufferedWriter bw = new BufferedWriter(writer);
-				for (int i=0;i<satz.size();i++)
-				{
-					String x = satz.get(i);
-					bw.write(x + "\n");
-				}
-				bw.close();
+				Util util = Factory.getUtil();
+				Writer pw = new FileWriter(file);
+      			if (punkte.size() > 0) 
+	      		{
+	      			SimpleDateFormat sdf1 = new SimpleDateFormat("YYYY-MM-dd");
+	      			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+	      			pw.write("<?xml version='1.0' encoding='UTF-8'?>" + "\n");
+	      			pw.write("<gpx>" + "\n");
+	      			pw.write(" <trk>" + "\n");
+	      			pw.write("  <trkseg>" + "\n");
+	      	 	   	for (int i=0;i<punkte.size();i++)
+	      	 	   	{
+	      	 	   		Point punkt = punkte.get(i);
+	      	 	   		double lat = punkt.getLat();
+	      	 	   		String s_lat = util.formatDouble(lat,6);
+	      	 	   		double lon = punkt.getLon();
+	      	 	   		String s_lon = util.formatDouble(lon,6);
+	      	 	   		double ele = 0.0;
+	      	 	   		String s_ele = util.formatDouble(ele,6);
+	      	 	   		Date d_datum = new Date();
+	      	 	   		pw.write("   <trkpt lat=\"" + s_lat + "\" lon=\"" + s_lon + "\">" + "\n");
+	      	 	   		pw.write("    <ele>" + s_ele + "</ele>" + "\n");
+	      	 	   		pw.write("    <time>" + sdf1.format(d_datum) + "T" + sdf2.format(d_datum) + "z" + "</time>" + "\n");
+	      	 	   		pw.write("   </trkpt>");
+	      	 	   		}
+	       			pw.write("  </trkseg>" + "\n");
+	    			pw.write(" </trk>" + "\n");
+	       			pw.write("</gpx>" + "\n");
+	      			}
+	      		else
+	      		{
+	      			String meldung = "Keine Trackpunkte";
+	      			Protokol.write(meldung);
+	      		}
+      			pw.close();
 			}
 			catch (Exception e)
 			{

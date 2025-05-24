@@ -1,5 +1,7 @@
 package osm.viewer;
-import core.*;
+import java.text.NumberFormat;
+
+import core.Util;
 public class SimpleUtil implements Util
 {
 	@Override
@@ -31,5 +33,21 @@ public class SimpleUtil implements Util
 		x = x / 10000;
 		String erg = "" + x;
 		return erg;
-	}	
+	}
+	@Override
+	public String formatDouble(double d, int stellen) 
+	{
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(stellen); 
+		nf.setMinimumFractionDigits(1);
+		String temp = nf.format(d);
+		String erg = "";
+		for (int i=0;i<temp.length();i++)
+		{
+			String ch = temp.substring(i,i+1);
+			if (ch.equals(",")) ch = ".";
+			erg += ch;
+		}
+		return erg;
+	}
 }
