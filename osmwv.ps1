@@ -2,6 +2,7 @@
 # OSMWV OpenStreetMapWebsiteViewer
 #
 $Dir = $PSScriptRoot
+$Dir = "C:\git\osmwv"
 $Lib = $Dir + "\lib\*.jar"
 $jars = Get-ChildItem -Path $Lib
 foreach ($jar in $jars)
